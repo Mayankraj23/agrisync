@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 from django_countries.fields import CountryField
@@ -14,10 +14,10 @@ class UserForm(UserCreationForm):
     account_type = forms.ChoiceField(widget=forms.Select(attrs={'class': 'text'}), choices=ACCOUNT_TYPE)
     password1 = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'text email', 'type': 'password', 'name': 'password', 'placeholder': 'Password'}), strip=False,
-                                label='')
+        label='')
     password2 = forms.CharField(widget=forms.PasswordInput(
         attrs={'class': 'text w3lpass', 'type': 'password', 'name': 'password', 'placeholder': 'Confirm Password'}),
-                                strip=False, label='')
+        strip=False, label='')
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'text', 'type': 'text', 'name': 'Username', 'placeholder': 'Username'}),
         label='')
@@ -54,3 +54,8 @@ class ExpertForm(UserProfileForm):
     class Meta:
         model = ExpertAccount
         fields = ['profile', 'cover', 'state', 'district', 'skills']
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), label='')
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), label='', strip=False)

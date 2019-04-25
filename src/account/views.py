@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView as DefaultLoginView
-from account.forms import FarmerForm, UserForm, ExpertForm
+from account.forms import FarmerForm, UserForm, ExpertForm, LoginForm
 from account.models import FarmerAccount, ExpertAccount
 
 
@@ -21,10 +21,10 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['user'] = self.user
         return context
 
-
 class LoginView(DefaultLoginView):
     template_name = 'account/login.html'
     redirect_authenticated_user = True
+    form_class = LoginForm
 
     def get_success_url(self):
         url = super().get_redirect_url()
