@@ -21,6 +21,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['user'] = self.user
         return context
 
+
 class LoginView(DefaultLoginView):
     template_name = 'account/login.html'
     redirect_authenticated_user = True
